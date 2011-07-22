@@ -9,26 +9,27 @@ import java.util.*;
 
 @MappedSuperclass
 public class AlterBase implements Serializable {
-	
-	@Id
-	@GeneratedValue
-	public long id;
-
-
-    public String toString() {
-        return getClass().getName().replaceFirst(".*\\.", "") + "[" + this.id + "]";
-    }
-
-
-//    public <T extends Base> Query find(String query, Object ... args) {
-//        return JPA.em().createQuery(query, args)
-//    }
 
     public void persist() {
         JPA.em().persist(this);
     }
 
 
+    public static String join(Object ... components) {
+        StringBuilder sb = new StringBuilder();
+        for(Object o : components) {
+            sb.append(o!=null ? o.toString() : null);
+        }
+        return sb.toString();
+    }
+
+    public static String qq(String s) {
+        if(s==null) return null;
+        StringBuilder sb = new StringBuilder("\"");
+        sb.append(s);
+        sb.append("\"");
+        return sb.toString();
+    }
 
     /**
      * Count entities
