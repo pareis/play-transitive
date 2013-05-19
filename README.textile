@@ -1,0 +1,13 @@
+h1. [transitive] Transitive Persistence for play 1.2.x
+
+_This module brings back transitive JPA persistence that has been removed from play_
+
+h2. Rationale
+
+The founders of the play framework have made a decision against the
+implicit, transitive persistence model that is found in JPA.
+
+The solution they built requires the developer to explicitly call save() on
+any object that has change (they propagate down the cascade chain so it's a little mitigated).
+
+_Written by André Pareis_
