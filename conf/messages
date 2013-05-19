@@ -1,5 +1,5 @@
-# Default alterbase messages
+# Default transitive messages
 # You can specialize this file for each language.
 # For exemple, for french create a messages.fr file
 
-#alterbase.name=alterbase
+#transitive.name=transitive

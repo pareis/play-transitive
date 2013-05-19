@@ -1,4 +1,4 @@
-self: pareis -> alterbase 0.1
+self: pareis -> transitive 0.1
 
 require:
     - play
