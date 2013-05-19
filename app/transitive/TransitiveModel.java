@@ -1,4 +1,4 @@
-package alterbase;
+package transitive;
 
 
 
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Base extends AlterBase {
+public class TransitiveModel extends GenericTransitiveModel {
 
     @Id
 	@GeneratedValue()

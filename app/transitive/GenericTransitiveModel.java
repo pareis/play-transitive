@@ -1,4 +1,4 @@
-package alterbase;
+package transitive;
 
 import play.db.jpa.JPA;
 
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @MappedSuperclass
-public class AlterBase implements Serializable {
+public class GenericTransitiveModel implements Serializable {
 
     public void persist() {
         JPA.em().persist(this);
@@ -53,7 +53,7 @@ public class AlterBase implements Serializable {
     /**
      * Find all entities of this type
      */
-    public static <T extends AlterBase> List<T> findAll() {
+    public static <T extends GenericTransitiveModel> List<T> findAll() {
         throw new UnsupportedOperationException("Please annotate your JPA model with @javax.persistence.Entity annotation.");
     }
 
@@ -62,7 +62,7 @@ public class AlterBase implements Serializable {
      * @param id The entity id
      * @return The entity
      */
-    public static <T extends AlterBase> T findById(Object id) {
+    public static <T extends GenericTransitiveModel> T findById(Object id) {
         throw new UnsupportedOperationException("Please annotate your JPA model with @javax.persistence.Entity annotation.");
     }
 
@@ -158,7 +158,7 @@ public class AlterBase implements Serializable {
                 }
                 return results.get(0);
             } catch (Exception e) {
-                throw new AlterBase.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", AlterBase.JPAQueryException.findBestCause(e));
+                throw new GenericTransitiveModel.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", GenericTransitiveModel.JPAQueryException.findBestCause(e));
             }
         }
 
@@ -184,7 +184,7 @@ public class AlterBase implements Serializable {
             try {
                 return query.getResultList();
             } catch (Exception e) {
-                throw new AlterBase.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", AlterBase.JPAQueryException.findBestCause(e));
+                throw new GenericTransitiveModel.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", GenericTransitiveModel.JPAQueryException.findBestCause(e));
             }
         }
 
@@ -198,7 +198,7 @@ public class AlterBase implements Serializable {
                 query.setMaxResults(max);
                 return query.getResultList();
             } catch (Exception e) {
-                throw new AlterBase.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", AlterBase.JPAQueryException.findBestCause(e));
+                throw new GenericTransitiveModel.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", GenericTransitiveModel.JPAQueryException.findBestCause(e));
             }
         }
 
@@ -227,7 +227,7 @@ public class AlterBase implements Serializable {
             try {
                 return query.getResultList();
             } catch (Exception e) {
-                throw new AlterBase.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", AlterBase.JPAQueryException.findBestCause(e));
+                throw new GenericTransitiveModel.JPAQueryException("Error while executing query <strong>" + sq + "</strong>", GenericTransitiveModel.JPAQueryException.findBestCause(e));
             }
         }
     }

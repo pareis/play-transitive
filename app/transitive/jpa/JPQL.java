@@ -1,7 +1,7 @@
-package alterbase.jpa;
+package transitive.jpa;
 
-import alterbase.AlterBase;
-import alterbase.AlterBase.JPAQuery;
+import transitive.GenericTransitiveModel;
+import transitive.GenericTransitiveModel.JPAQuery;
 import play.Play;
 import play.db.jpa.JPA;
 
@@ -30,8 +30,8 @@ public class JPQL {
         return em().createQuery("select e from " + entity + " e").getResultList();
     }
 
-    public AlterBase findById(String entity, Object id) throws Exception {
-        return (AlterBase) em().find(Play.classloader.loadClass(entity), id);
+    public GenericTransitiveModel findById(String entity, Object id) throws Exception {
+        return (GenericTransitiveModel) em().find(Play.classloader.loadClass(entity), id);
     }
 
     public List findBy(String entity, String query, Object[] params) {
@@ -73,14 +73,14 @@ public class JPQL {
         return bindParameters(q).executeUpdate();
     }
 
-    public AlterBase findOneBy(String entity, String query, Object[] params) {
+    public GenericTransitiveModel findOneBy(String entity, String query, Object[] params) {
         Query q = em().createQuery(
                 createFindByQuery(entity, entity, query, params));
         List results = bindParameters(q, params).getResultList();
         if (results.size() == 0) {
             return null;
         }
-        return (AlterBase) results.get(0);
+        return (GenericTransitiveModel) results.get(0);
     }
 
 
