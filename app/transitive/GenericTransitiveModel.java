@@ -1,5 +1,6 @@
 package transitive;
 
+import play.db.Model;
 import play.db.jpa.JPA;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @MappedSuperclass
-public class GenericTransitiveModel implements Serializable {
+public abstract class GenericTransitiveModel implements Model, Serializable {
 
     public void persist() {
         JPA.em().persist(this);
