@@ -1,13 +1,52 @@
 h1. [transitive] Transitive Persistence for play 1.2.x
 
-_This module brings back transitive JPA persistence that has been removed from play_
+JPA as a standard is all about transitive persistence. Within a JPA transaction, any change to
+any object that is managed by the EntityManager will result in propagation
+of those changes back into the database. The easiness of this automatism is
+something that took the Java Enterprise world quite some time to achieve.
 
-h2. Rationale
+The inventors of play, however, don't see the value in this achievement and try to resemble
+the logic that is found in other web frameworks like Ruby on Rails, where the save operation
+is an explicit step to ask for. Therefore, in play you will need to call save() on any object
+whose changes you want to be committed to the database. If you have to manage a larger object
+graph, this behavior is very error-prone and annoying to code.
 
-The founders of the play framework have made a decision against the
-implicit, transitive persistence model that is found in JPA.
+see more here => http://pareis.com/2012/10/02/jpa-transitive-persistence-for-play-framework/
 
-The solution they built requires the developer to explicitly call save() on
-any object that has change (they propagate down the cascade chain so it's a little mitigated).
+h2. Benefits of this module
+
+This module brings the original behavior of JPA's transitive persistence back into the play framework.
+The API is exactly the same as in out-of-the-box play with the exception that it is necessary to inherit
+your model classes from a different base class. And then, instead of calling save on every object you want to
+have saved to the DB, it is merely necessay to call persist() on <i>newly</i> created objects.
+Every other change (update, deletion by orphanation) is handled by JPA in the standard way.
+
+h2. Using the module
+
+add an entry to your dependencies.yml:
+
+<pre><code lang=yml># Application dependencies
+
+require:
+    - play
+    - pareis -> transitive 0.1
+
+repositories:
+    - playModules:
+         type:     chain
+         using:
+              - bintray:
+                   type: http 
+                   artifact: "http://dl.bintray.com/[organisation]/play-modules/[module]-[revision].zip"
+                   contains: 
+                      - pareis -> transitive
+
+              - playLocalModules:
+                   type:       local
+                   descriptor: "${play.path}/modules/[module]-[revision]/conf/dependencies.yml"
+                   artifact:   "${play.path}/modules/[module]-[revision]"
+                   contains:
+                        - play -> *
+</code></pre>
 
 _Written by André Pareis_
